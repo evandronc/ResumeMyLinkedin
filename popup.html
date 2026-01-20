@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: sans-serif;
+      width: 360px;
+    }
+    #log {
+      white-space: pre-wrap;
+      font-size: 11px;
+      height: 260px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 6px;
+    }
+    button {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <button id="generate">Generate Resume</button>
+  <pre id="log"></pre>
+
+  <!-- BASE -->
+  <script src="logger.js"></script>
+
+  <!-- DOMAIN SCRAPERS -->
+<script src="experienceScraper.js"></script>
+<script src="educationScraper.js"></script>
+<script src="volunteeringScraper.js"></script>
+<script src="contactScraper.js"></script>
+
+<!-- ORCHESTRATOR -->
+<script src="scrapper.js"></script>
+
+
+  <!-- DOCX -->
+  <script src="docx.min.js"></script>
+  <script src="docxGenerator.js"></script>
+  <script src="downloader.js"></script>
+
+  <!-- ENTRYPOINT -->
+  <script src="popup.js"></script>
+</body>
+</html>
