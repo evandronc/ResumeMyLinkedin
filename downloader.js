@@ -1,11 +1,7 @@
 window.ResumeMyLinkedin = window.ResumeMyLinkedin || {};
 ResumeMyLinkedin.Downloader = {
-  download(blob, filename, openInTab = false) {
+  download(blob, filename) {
     const url = URL.createObjectURL(blob);
-    chrome.downloads.download({ url, filename }, () => {
-      if (openInTab) {
-        chrome.tabs.create({ url });
-      }
-    });
+    chrome.downloads.download({ url, filename });
   }
 };

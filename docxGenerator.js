@@ -235,7 +235,7 @@ ResumeMyLinkedin.DocxGenerator = {
       contact?.name?.replace(/[^a-zA-Z]/g, "") || "ResumeMyLinkedin";
 
     Packer.toBlob(doc).then(blob =>
-      ResumeMyLinkedin.Downloader.download(blob, `${safeName}.docx`, true)
+      ResumeMyLinkedin.Downloader.download(blob, `${safeName}.docx`)
     );
   }
 };
