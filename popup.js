@@ -26,7 +26,7 @@ document.getElementById("generate").onclick = async () => {
     console.log("CONTACT final:", contact);
 
     if (!experience.length && !education.length && !about) {
-      ResumeMyLinkedin.Logger.log("No data extracted");
+      ResumeMyLinkedin.Logger.log(`No data extracted. Experience: ${experience.length}, Education: ${education.length}, About: ${!!about}`);
       return;
     }
 

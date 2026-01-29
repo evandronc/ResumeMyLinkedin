@@ -3,10 +3,17 @@ window.ResumeMyLinkedin = window.ResumeMyLinkedin || {};
 
 ResumeMyLinkedin.AboutScraper = {
     scrape(doc, logs) {
-        const sectionAnchor = doc.querySelector('#about');
-        if (!sectionAnchor) return null;
+        // Helper to find section by ID or Title
+        const findSection = (doc, id, titleText) => {
+            let sc = doc.querySelector(`#${id}`);
+            if (sc) return sc.closest('section') || sc;
 
-        const section = sectionAnchor.closest('section');
+            const h2s = Array.from(doc.querySelectorAll('h2 span[aria-hidden="true"]'));
+            const foundH2 = h2s.find(span => span.textContent.trim() === titleText);
+            return foundH2 ? foundH2.closest('section') : null;
+        };
+
+        const section = findSection(doc, 'about', 'About');
         if (!section) return null;
 
         // Helper to extract text preserving line breaks from <br>

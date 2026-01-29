@@ -45,9 +45,22 @@ window.ResumeMyLinkedin.ContactScraper = {
     // -------------------------------------------------
     // TOP CARD CONTAINER (walk upward)
     // -------------------------------------------------
-    const topCard =
-      contactLink.closest("section") ||
-      contactLink.closest("div");
+    let topCard = contactLink.closest("section");
+
+    if (!topCard) {
+      let candidate = contactLink.closest("div");
+      // Walk up to find the container with the name (H1)
+      let levels = 0;
+      while (candidate && levels < 15) {
+        if (candidate.tagName === 'BODY') break;
+        if (candidate.querySelector("h1")) {
+          topCard = candidate;
+          break;
+        }
+        candidate = candidate.parentElement;
+        levels++;
+      }
+    }
 
     if (!topCard) {
       console.log("[CONTACT] ❌ Top card container not found");

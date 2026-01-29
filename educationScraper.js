@@ -4,11 +4,20 @@ window.ResumeMyLinkedin.EducationScraper = {
   scrape(doc, logs) {
     const education = [];
 
-    const section = doc.querySelector('#education');
+    // Helper to find section by ID or Title
+    const findSection = (doc, id, titleText) => {
+      let sc = doc.querySelector(`#${id}`);
+      if (sc) return sc.closest('section') || sc;
+
+      const h2s = Array.from(doc.querySelectorAll('h2 span[aria-hidden="true"]'));
+      const foundH2 = h2s.find(span => span.textContent.trim() === titleText);
+      return foundH2 ? foundH2.closest('section') : null;
+    };
+
+    const section = findSection(doc, 'education', 'Education');
     if (!section) return education;
 
     const entities = section
-      .closest('section')
       .querySelectorAll('div[data-view-name="profile-component-entity"]');
 
     const getText = (el) =>

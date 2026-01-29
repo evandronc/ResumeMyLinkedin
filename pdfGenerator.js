@@ -70,15 +70,12 @@ ResumeMyLinkedin.PdfGenerator = {
     // ===============================
     // CONTACT INFO
     // ===============================
-    const contactLines = [];
-    if (contact?.location) contactLines.push(contact.location);
-    if (contact?.phone) contactLines.push(contact.phone);
-    if (contact?.email) contactLines.push(contact.email);
-    if (contact?.linkedin) contactLines.push(contact.linkedin);
+    const contactStyle = { fontSize: 10, color: [100, 100, 100] };
 
-    if (contactLines.length > 0) {
-      addText(contactLines.join(' | '), { fontSize: 10, color: [100, 100, 100] });
-    }
+    if (contact?.location) addText(contact.location, contactStyle);
+    if (contact?.phone) addText(contact.phone, contactStyle);
+    if (contact?.email) addText(contact.email, contactStyle);
+    if (contact?.linkedin) addText(contact.linkedin, contactStyle);
 
     y += 5;
 
