@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8" />
   <style>
@@ -7,6 +8,7 @@
       font-family: sans-serif;
       width: 360px;
     }
+
     #log {
       white-space: pre-wrap;
       font-size: 11px;
@@ -15,13 +17,23 @@
       border: 1px solid #ccc;
       padding: 6px;
     }
+
     button {
       width: 100%;
       margin-bottom: 8px;
     }
   </style>
 </head>
+
 <body>
+  <div style="margin-bottom: 10px;">
+    <label>
+      <input type="checkbox" id="format-pdf" checked /> PDF
+    </label>
+    <label style="margin-left: 10px;">
+      <input type="checkbox" id="format-docx" /> DOCX
+    </label>
+  </div>
   <button id="generate">Generate Resume</button>
   <pre id="log"></pre>
 
@@ -29,21 +41,28 @@
   <script src="logger.js"></script>
 
   <!-- DOMAIN SCRAPERS -->
-<script src="experienceScraper.js"></script>
-<script src="educationScraper.js"></script>
-<script src="volunteeringScraper.js"></script>
-<script src="contactScraper.js"></script>
+  <script src="experienceScraper.js"></script>
+  <script src="educationScraper.js"></script>
+  <script src="volunteeringScraper.js"></script>
+  <script src="aboutScraper.js"></script>
+  <script src="contactScraper.js"></script>
 
-<!-- ORCHESTRATOR -->
-<script src="scrapper.js"></script>
+  <!-- ORCHESTRATOR -->
+  <script src="scrapper.js"></script>
 
 
   <!-- DOCX -->
   <script src="docx.min.js"></script>
   <script src="docxGenerator.js"></script>
+
+  <!-- PDF -->
+  <script src="jspdf.umd.min.js"></script>
+  <script src="pdfGenerator.js"></script>
+
   <script src="downloader.js"></script>
 
   <!-- ENTRYPOINT -->
   <script src="popup.js"></script>
 </body>
+
 </html>

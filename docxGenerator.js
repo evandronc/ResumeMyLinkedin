@@ -2,7 +2,7 @@
 window.ResumeMyLinkedin = window.ResumeMyLinkedin || {};
 
 ResumeMyLinkedin.DocxGenerator = {
-  generate(contact, experience, education, volunteering) {
+  generate(contact, about, experience, education, volunteering) {
     const {
       Document,
       Paragraph,
@@ -62,6 +62,20 @@ ResumeMyLinkedin.DocxGenerator = {
     );
 
     content.push(new Paragraph({}));
+
+    // ===============================
+    // SUMMARY
+    // ===============================
+    if (about) {
+      content.push(
+        new Paragraph({
+          text: "Summary",
+          heading: HeadingLevel.HEADING_1
+        })
+      );
+      content.push(new Paragraph({ text: about }));
+      content.push(new Paragraph({}));
+    }
 
     // ===============================
     // PROFESSIONAL EXPERIENCE

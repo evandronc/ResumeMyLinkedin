@@ -13,7 +13,7 @@ window.ResumeMyLinkedin.VolunteeringScraper = {
       .querySelectorAll('div[data-view-name="profile-component-entity"]');
 
     const getText = (el) =>
-      el?.innerText?.replace(/\s+/g, " ").trim() || null;
+      el?.textContent?.replace(/\s+/g, " ").trim() || null;
 
     const extractDescription = (root) => {
       const spans = root.querySelectorAll(
@@ -21,7 +21,7 @@ window.ResumeMyLinkedin.VolunteeringScraper = {
       );
       if (!spans.length) return null;
       return Array.from(spans)
-        .map(s => s.innerText.trim())
+        .map(s => s.textContent.trim())
         .join("\n")
         .trim();
     };
@@ -55,9 +55,9 @@ window.ResumeMyLinkedin.VolunteeringScraper = {
 
       const category = categorySpans.length
         ? Array.from(categorySpans)
-            .map(s => s.innerText.trim())
-            .filter(Boolean)
-            .join(", ")
+          .map(s => s.textContent.trim())
+          .filter(Boolean)
+          .join(", ")
         : null;
 
       volunteering.push({

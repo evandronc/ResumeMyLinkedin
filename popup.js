@@ -16,6 +16,7 @@ document.getElementById("generate").onclick = async () => {
   try {
     const {
       contact,
+      about,
       experience,
       education,
       volunteering,
@@ -24,20 +25,44 @@ document.getElementById("generate").onclick = async () => {
 
     console.log("CONTACT final:", contact);
 
-    if (!experience.length && !education.length) {
+    if (!experience.length && !education.length && !about) {
       ResumeMyLinkedin.Logger.log("No data extracted");
+      return;
+    }
+
+    const usePdf = document.getElementById("format-pdf").checked;
+    const useDocx = document.getElementById("format-docx").checked;
+
+    if (!usePdf && !useDocx) {
+      ResumeMyLinkedin.Logger.log("Please select at least one output format.");
       return;
     }
 
     ResumeMyLinkedin.Logger.log("Generating resume…");
 
-    ResumeMyLinkedin.DocxGenerator.generate(
-      contact,
-      experience,
-      education,
-      volunteering,
-      logs
-    );
+    if (usePdf) {
+      ResumeMyLinkedin.Logger.log("Creating PDF...");
+      ResumeMyLinkedin.PdfGenerator.generate(
+        contact,
+        about,
+        experience,
+        education,
+        volunteering,
+        logs
+      );
+    }
+
+    if (useDocx) {
+      ResumeMyLinkedin.Logger.log("Creating DOCX...");
+      ResumeMyLinkedin.DocxGenerator.generate(
+        contact,
+        about,
+        experience,
+        education,
+        volunteering,
+        logs
+      );
+    }
 
   } catch (err) {
     ResumeMyLinkedin.Logger.log(`ERROR: ${err.message}`);

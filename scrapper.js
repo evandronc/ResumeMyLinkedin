@@ -47,12 +47,12 @@ ResumeMyLinkedin.Scraper = {
     const experienceSection = doc.querySelector("#experience");
     const experienceEntities = experienceSection
       ? Array.from(
-          experienceSection
-            .closest("section")
-            .querySelectorAll(
-              'div[data-view-name="profile-component-entity"]'
-            )
-        )
+        experienceSection
+          .closest("section")
+          .querySelectorAll(
+            'div[data-view-name="profile-component-entity"]'
+          )
+      )
       : [];
 
     const experience =
@@ -64,6 +64,9 @@ ResumeMyLinkedin.Scraper = {
     const volunteering =
       ResumeMyLinkedin.VolunteeringScraper.scrape(doc, logs);
 
-    return { contact, experience, education, volunteering, logs };
+    const about =
+      ResumeMyLinkedin.AboutScraper.scrape(doc, logs);
+
+    return { contact, about, experience, education, volunteering, logs };
   }
 };

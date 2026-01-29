@@ -7,7 +7,7 @@ window.ResumeMyLinkedin.ExperienceScraper = {
     const consumed = new Set();
 
     const getText = (el) =>
-      el?.innerText?.replace(/\s+/g, " ").trim() || null;
+      el?.textContent?.replace(/\s+/g, " ").trim() || null;
 
     const extractDescription = (root) => {
       const spans = root.querySelectorAll(
@@ -15,7 +15,7 @@ window.ResumeMyLinkedin.ExperienceScraper = {
       );
       if (!spans.length) return null;
       return Array.from(spans)
-        .map(s => s.innerText.trim())
+        .map(s => s.textContent.trim())
         .join("\n")
         .trim();
     };

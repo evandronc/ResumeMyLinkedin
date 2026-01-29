@@ -12,7 +12,7 @@ window.ResumeMyLinkedin.EducationScraper = {
       .querySelectorAll('div[data-view-name="profile-component-entity"]');
 
     const getText = (el) =>
-      el?.innerText?.replace(/\s+/g, " ").trim() || null;
+      el?.textContent?.replace(/\s+/g, " ").trim() || null;
 
     const extractDetails = (root) => {
       const spans = root.querySelectorAll(
@@ -20,7 +20,7 @@ window.ResumeMyLinkedin.EducationScraper = {
       );
       if (!spans.length) return null;
       return Array.from(spans)
-        .map(s => s.innerText.trim())
+        .map(s => s.textContent.trim())
         .join("\n")
         .trim();
     };
