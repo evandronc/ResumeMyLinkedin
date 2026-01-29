@@ -73,7 +73,25 @@ ResumeMyLinkedin.DocxGenerator = {
           heading: HeadingLevel.HEADING_1
         })
       );
-      content.push(new Paragraph({ text: about }));
+
+      const lines = about.split('\n');
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+
+        let cleanText = trimmed;
+        const isBullet = trimmed.startsWith('•') || trimmed.startsWith('-');
+
+        if (isBullet) {
+          cleanText = trimmed.replace(/^[•-]\s*/, "");
+        }
+
+        content.push(new Paragraph({
+          text: cleanText,
+          bullet: isBullet ? { level: 0 } : undefined
+        }));
+      });
+
       content.push(new Paragraph({}));
     }
 
@@ -217,7 +235,7 @@ ResumeMyLinkedin.DocxGenerator = {
       contact?.name?.replace(/[^a-zA-Z]/g, "") || "ResumeMyLinkedin";
 
     Packer.toBlob(doc).then(blob =>
-      ResumeMyLinkedin.Downloader.download(blob, `${safeName}.docx`)
+      ResumeMyLinkedin.Downloader.download(blob, `${safeName}.docx`, true)
     );
   }
 };
