@@ -25,7 +25,8 @@ ResumeMyLinkedin.PdfGenerator = {
         fontSize = 10,
         fontStyle = 'normal',
         color = [0, 0, 0],
-        align = 'left' // 'left', 'center', 'right'
+        align = 'left', // 'left', 'center', 'right'
+        marginBottom = 2
       } = options;
 
       doc.setFontSize(fontSize);
@@ -49,14 +50,14 @@ ResumeMyLinkedin.PdfGenerator = {
         y += (fontSize * 0.45) + 1; // Line spacing
       });
 
-      y += 2; // Extra spacing after block
+      y += marginBottom; // Extra spacing after block
     };
 
     // ===============================
     // HEADER — NAME
     // ===============================
     if (contact?.name) {
-      addText(contact.name, { fontSize: 24, fontStyle: 'bold' });
+      addText(contact.name, { fontSize: 24, fontStyle: 'bold', marginBottom: 0 });
     }
 
     // ===============================

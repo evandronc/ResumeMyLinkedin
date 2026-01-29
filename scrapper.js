@@ -47,7 +47,7 @@ ResumeMyLinkedin.Scraper = {
     const findSection = (doc, id, titleText) => {
       // 1. Try ID
       let section = doc.querySelector(`#${id}`);
-      if (section) return section;
+      if (section) return section.closest('section') || section;
 
       // 2. Try Title (H2 > span[aria-hidden="true"])
       const h2s = Array.from(doc.querySelectorAll('h2 span[aria-hidden="true"]'));
