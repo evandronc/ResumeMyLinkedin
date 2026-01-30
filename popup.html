@@ -1,41 +1,492 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #06b6d4;
+      --primary-dark: #0891b2;
+      --secondary: #3b82f6;
+      --background: #0f172a;
+      --background-light: #1e293b;
+      --card-bg: rgba(15, 23, 42, 0.6);
+      --border: rgba(148, 163, 184, 0.2);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --radius: 12px;
+    }
+
     body {
-      font-family: sans-serif;
-      width: 360px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      width: 420px;
+      min-height: 580px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+      color: var(--text-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated background blobs */
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      pointer-events: none;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .bg-blob-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--primary);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .bg-blob-2 {
+      width: 250px;
+      height: 250px;
+      background: var(--secondary);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(20px, 20px) scale(1.1); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 24px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    .header-icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .header-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3);
+    }
+
+    .header-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin: 0;
+      background: linear-gradient(135deg, var(--text-primary), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-center;
+      gap: 6px;
+    }
+
+    .header p svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--primary);
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .card-accent {
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), #a855f7);
+    }
+
+    .card-content {
+      padding: 24px;
+    }
+
+    /* Format Selection */
+    .format-section {
+      margin-bottom: 24px;
+    }
+
+    .format-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .format-options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .format-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: rgba(30, 41, 59, 0.4);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .format-option:hover {
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(30, 41, 59, 0.6);
+    }
+
+    .format-option.active {
+      border-color: var(--primary);
+      background: rgba(6, 182, 212, 0.1);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+
+    .format-option.active.docx {
+      border-color: var(--secondary);
+      background: rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+    }
+
+    .format-option input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .format-option.docx input[type="checkbox"] {
+      accent-color: var(--secondary);
+    }
+
+    .format-option label {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .format-option.active label {
+      color: var(--primary);
+    }
+
+    .format-option.active.docx label {
+      color: var(--secondary);
+    }
+
+    /* Generate Button */
+    .btn-generate {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-generate:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(6, 182, 212, 0.4);
+    }
+
+    .btn-generate:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-generate:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-generate svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .btn-generate.generating svg {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Log Area */
+    .log-section {
+      position: relative;
+    }
+
+    .log-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
     }
 
     #log {
-      white-space: pre-wrap;
+      width: 100%;
+      height: 240px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
       font-size: 11px;
-      height: 260px;
+      color: var(--text-secondary);
       overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 6px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      resize: none;
     }
 
-    button {
-      width: 100%;
-      margin-bottom: 8px;
+    #log::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #log::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #log::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 3px;
+    }
+
+    #log::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.5);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      animation: fadeIn 0.6s ease-out 0.4s both;
+    }
+
+    .footer svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--text-muted);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 
 <body>
-  <div style="margin-bottom: 10px;">
-    <label>
-      <input type="checkbox" id="format-pdf" checked /> PDF
-    </label>
-    <label style="margin-left: 10px;">
-      <input type="checkbox" id="format-docx" /> DOCX
-    </label>
+  <!-- Animated background -->
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-icon-wrapper">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h1>ResumeMyLinkedin</h1>
+      </div>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="5" y="11" width="14" height="10" rx="2" ry="2"></rect>
+          <circle cx="12" cy="16" r="1"></circle>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        Secure & Professional Resume Generator
+      </p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+      <div class="card-accent"></div>
+      <div class="card-content">
+        <!-- Format Selection -->
+        <div class="format-section">
+          <label class="format-label">Output Format</label>
+          <div class="format-options">
+            <div class="format-option active" id="pdf-option">
+              <input type="checkbox" id="format-pdf" checked />
+              <label for="format-pdf">PDF</label>
+            </div>
+            <div class="format-option docx" id="docx-option">
+              <input type="checkbox" id="format-docx" />
+              <label for="format-docx">DOCX</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="generate" class="btn-generate">
+          <svg viewBox="0 0 24 24">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Generate Resume
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </button>
+
+        <!-- Log Area -->
+        <div class="log-section">
+          <label class="log-label">Output Preview</label>
+          <pre id="log"></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <svg viewBox="0 0 24 24" fill="none">
+        <rect x="5" y="11" width="14" height="10" rx="2" ry="2"></rect>
+        <circle cx="12" cy="16" r="1"></circle>
+        <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+      </svg>
+      Your data is processed locally and secure
+    </div>
   </div>
-  <button id="generate">Generate Resume</button>
-  <pre id="log"></pre>
+
+  <!-- Scripts -->
+  <script>
+    // Format option interactivity
+    document.getElementById('pdf-option').addEventListener('click', function(e) {
+      if (e.target.tagName !== 'INPUT') {
+        const checkbox = this.querySelector('input');
+        checkbox.checked = !checkbox.checked;
+      }
+      this.classList.toggle('active', this.querySelector('input').checked);
+    });
+
+    document.getElementById('docx-option').addEventListener('click', function(e) {
+      if (e.target.tagName !== 'INPUT') {
+        const checkbox = this.querySelector('input');
+        checkbox.checked = !checkbox.checked;
+      }
+      this.classList.toggle('active', this.querySelector('input').checked);
+    });
+
+    document.getElementById('format-pdf').addEventListener('change', function() {
+      document.getElementById('pdf-option').classList.toggle('active', this.checked);
+    });
+
+    document.getElementById('format-docx').addEventListener('change', function() {
+      document.getElementById('docx-option').classList.toggle('active', this.checked);
+    });
+  </script>
 
   <!-- BASE -->
   <script src="logger.js"></script>
@@ -50,7 +501,6 @@
   <!-- ORCHESTRATOR -->
   <script src="scrapper.js"></script>
 
-
   <!-- DOCX -->
   <script src="docx.min.js"></script>
   <script src="docxGenerator.js"></script>
@@ -64,5 +514,4 @@
   <!-- ENTRYPOINT -->
   <script src="popup.js"></script>
 </body>
-
 </html>
