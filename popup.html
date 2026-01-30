@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8" />
   <style>
@@ -27,7 +28,7 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
       width: 420px;
-      min-height: 580px;
+      min-height: 406px;
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
       color: var(--text-primary);
       position: relative;
@@ -63,20 +64,27 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(20px, 20px) scale(1.1); }
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(20px, 20px) scale(1.1);
+      }
     }
 
     .container {
       position: relative;
       z-index: 1;
-      padding: 24px;
+      padding: 17px;
     }
 
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
       animation: fadeInDown 0.6s ease-out;
     }
 
@@ -84,13 +92,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
     .header-icon {
-      width: 48px;
-      height: 48px;
+      width: 34px;
+      height: 34px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-radius: var(--radius);
       display: flex;
@@ -100,15 +108,15 @@
     }
 
     .header-icon svg {
-      width: 28px;
-      height: 28px;
+      width: 20px;
+      height: 20px;
       stroke: white;
       fill: none;
       stroke-width: 2;
     }
 
     .header h1 {
-      font-size: 26px;
+      font-size: 18px;
       font-weight: 600;
       margin: 0;
       background: linear-gradient(135deg, var(--text-primary), var(--primary));
@@ -123,7 +131,7 @@
       margin-top: 6px;
       display: flex;
       align-items: center;
-      justify-center;
+      justify-content: center;
       gap: 6px;
     }
 
@@ -150,12 +158,12 @@
     }
 
     .card-content {
-      padding: 24px;
+      padding: 17px;
     }
 
     /* Format Selection */
     .format-section {
-      margin-bottom: 24px;
+      margin-bottom: 17px;
     }
 
     .format-label {
@@ -165,7 +173,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-secondary);
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .format-options {
@@ -178,7 +186,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 16px;
+      padding: 10px 11px;
       background: rgba(30, 41, 59, 0.4);
       border: 2px solid var(--border);
       border-radius: var(--radius);
@@ -234,12 +242,12 @@
     /* Generate Button */
     .btn-generate {
       width: 100%;
-      padding: 16px;
+      padding: 11px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       border: none;
       border-radius: var(--radius);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -248,7 +256,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .btn-generate:hover:not(:disabled) {
@@ -278,8 +286,13 @@
     }
 
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* Log Area */
@@ -299,11 +312,11 @@
 
     #log {
       width: 100%;
-      height: 240px;
+      height: 168px;
       background: rgba(15, 23, 42, 0.6);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 14px;
+      padding: 10px;
       font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
       font-size: 11px;
       color: var(--text-secondary);
@@ -333,7 +346,7 @@
     /* Footer */
     .footer {
       text-align: center;
-      margin-top: 16px;
+      margin-top: 11px;
       font-size: 11px;
       color: var(--text-muted);
       display: flex;
@@ -355,6 +368,7 @@
         opacity: 0;
         transform: translateY(-20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -366,6 +380,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -373,8 +388,13 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
@@ -463,7 +483,7 @@
   <!-- Scripts -->
   <script>
     // Format option interactivity
-    document.getElementById('pdf-option').addEventListener('click', function(e) {
+    document.getElementById('pdf-option').addEventListener('click', function (e) {
       if (e.target.tagName !== 'INPUT') {
         const checkbox = this.querySelector('input');
         checkbox.checked = !checkbox.checked;
@@ -471,7 +491,7 @@
       this.classList.toggle('active', this.querySelector('input').checked);
     });
 
-    document.getElementById('docx-option').addEventListener('click', function(e) {
+    document.getElementById('docx-option').addEventListener('click', function (e) {
       if (e.target.tagName !== 'INPUT') {
         const checkbox = this.querySelector('input');
         checkbox.checked = !checkbox.checked;
@@ -479,11 +499,11 @@
       this.classList.toggle('active', this.querySelector('input').checked);
     });
 
-    document.getElementById('format-pdf').addEventListener('change', function() {
+    document.getElementById('format-pdf').addEventListener('change', function () {
       document.getElementById('pdf-option').classList.toggle('active', this.checked);
     });
 
-    document.getElementById('format-docx').addEventListener('change', function() {
+    document.getElementById('format-docx').addEventListener('change', function () {
       document.getElementById('docx-option').classList.toggle('active', this.checked);
     });
   </script>
@@ -514,4 +534,5 @@
   <!-- ENTRYPOINT -->
   <script src="popup.js"></script>
 </body>
+
 </html>
