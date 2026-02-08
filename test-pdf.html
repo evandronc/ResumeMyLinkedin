@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test jsPDF</title>
+    <script src="jspdf.umd.min.js"></script>
+</head>
+<body>
+    <h1>jsPDF Test</h1>
+    <button id="testBtn">Generate Test PDF</button>
+    <div id="status"></div>
+
+    <script>
+        document.getElementById('testBtn').addEventListener('click', function() {
+            const statusDiv = document.getElementById('status');
+            
+            try {
+                // Test if jsPDF is loaded
+                if (typeof window.jspdf === 'undefined') {
+                    statusDiv.innerHTML = '<p style="color: red;">ERROR: jsPDF not loaded!</p>';
+                    return;
+                }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Add some test content
+                doc.setFontSize(24);
+                doc.text('Test Resume', 20, 20);
+                
+                doc.setFontSize(12);
+                doc.text('Name: John Doe', 20, 40);
+                doc.text('Email: john.doe@example.com', 20, 50);
+                doc.text('Phone: (123) 456-7890', 20, 60);
+                
+                doc.setFontSize(16);
+                doc.text('Professional Experience', 20, 80);
+                
+                doc.setFontSize(10);
+                const longText = 'This is a test of the jsPDF library to ensure it works correctly with the new version. The library should be able to generate PDFs without any remote code dependencies.';
+                const lines = doc.splitTextToSize(longText, 170);
+                doc.text(lines, 20, 90);
+
+                // Save the PDF
+                doc.save('test-resume.pdf');
+                
+                statusDiv.innerHTML = '<p style="color: green;">✓ PDF generated successfully! Check your downloads folder.</p>';
+            } catch (error) {
+                statusDiv.innerHTML = '<p style="color: red;">ERROR: ' + error.message + '</p>';
+                console.error('PDF generation error:', error);
+            }
+        });
+
+        // Check if jsPDF loaded on page load
+        window.addEventListener('load', function() {
+            const statusDiv = document.getElementById('status');
+            if (typeof window.jspdf !== 'undefined') {
+                statusDiv.innerHTML = '<p style="color: blue;">jsPDF library loaded successfully. Click the button to test.</p>';
+            } else {
+                statusDiv.innerHTML = '<p style="color: red;">ERROR: jsPDF library failed to load!</p>';
+            }
+        });
+    </script>
+</body>
+</html>
