@@ -486,32 +486,7 @@
   </div>
 
   <!-- Scripts -->
-  <script>
-    // Format option interactivity
-    document.getElementById('pdf-option').addEventListener('click', function (e) {
-      if (e.target.tagName !== 'INPUT') {
-        const checkbox = this.querySelector('input');
-        checkbox.checked = !checkbox.checked;
-      }
-      this.classList.toggle('active', this.querySelector('input').checked);
-    });
 
-    document.getElementById('docx-option').addEventListener('click', function (e) {
-      if (e.target.tagName !== 'INPUT') {
-        const checkbox = this.querySelector('input');
-        checkbox.checked = !checkbox.checked;
-      }
-      this.classList.toggle('active', this.querySelector('input').checked);
-    });
-
-    document.getElementById('format-pdf').addEventListener('change', function () {
-      document.getElementById('pdf-option').classList.toggle('active', this.checked);
-    });
-
-    document.getElementById('format-docx').addEventListener('change', function () {
-      document.getElementById('docx-option').classList.toggle('active', this.checked);
-    });
-  </script>
 
   <!-- BASE -->
   <script src="logger.js"></script>
